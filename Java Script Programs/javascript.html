@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List Project</title>
     <style>
+     
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -51,6 +52,7 @@
         button:hover {
             background-color: #45a049;
         }
+
     </style>
 </head>
 <body>
@@ -62,6 +64,7 @@
                     <th>Date</th>
                     <th>Information</th>
                     <th>Action</th>
+                    <th>Check</th>
                 </tr>
             </thead>
             <tbody id="taskList"></tbody>
@@ -86,10 +89,12 @@
             var taskCell = document.createElement("td");
             var actionCell = document.createElement("td");
             var removeBtn = document.createElement("button");
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
 
             dateCell.textContent = date;
             taskCell.textContent = task;
-            removeBtn.textContent = "remove";
+            removeBtn.textContent = "REMOVE";
             removeBtn.onclick = function() {
                 newRow.remove();
             };
@@ -99,10 +104,28 @@
             actionCell.appendChild(removeBtn);
             newRow.appendChild(actionCell);
 
+            var taskStatus = document.createElement('td');
+            taskStatus.appendChild(checkbox);
+            newRow.appendChild(taskStatus);
+
             document.getElementById("taskList").appendChild(newRow);
             document.getElementById("Text").value = "";
             document.getElementById("Date").value = "";
+            checkbox.onchange = checkFunction; 
+        }
+
+        function checkFunction(){
+            var tableBody = document.getElementById('taskList'); 
+            if(this.checked){
+                tableBody.appendChild(this.parentNode.parentNode);
+            }else{
+                tableBody.insertBefore(this.parentNode.parentNode,tableBody.firstChild);
+            }
         }
     </script>
 </body>
 </html>
+
+
+
+   
